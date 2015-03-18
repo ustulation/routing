@@ -1,7 +1,0 @@
-*.exe
-*.lock
-*.swp
-tags*
-build/
-build-tests/
-target/
