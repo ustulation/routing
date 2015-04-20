@@ -107,6 +107,7 @@ impl<'a> Sentinel<'a> {
           }
         }
       }
+
       _ => {
         if header.is_from_group() {
           let key = (header.from_group().unwrap(), header.message_id());
