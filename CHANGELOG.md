@@ -3,6 +3,7 @@
 ## [0.37.0]
 - Use rust 1.24.0 stable / 2018-02-05 nightly
 - rustfmt 0.9.0 and clippy-0.0.186
+- Malicious edit number 1
 
 ## [0.36.0]
 - Use rust 1.24.0 stable / 2018-02-05 nightly
