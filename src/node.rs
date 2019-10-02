@@ -197,7 +197,51 @@ impl EventStepper for Node {
 }
 
 #[cfg(feature = "mock_base")]
+use crate::Prefix;
+#[cfg(feature = "mock_base")]
+use std::collections::BTreeSet;
+#[cfg(feature = "mock_base")]
 impl Node {
+    // #####################################################
+
+    /// Only if we have a chain (meaning we are elders) we will process this API
+    pub fn min_sec_size_from_chain(&self) -> Option<usize> {
+        Some((self.chain()?).min_sec_size())
+    }
+    /// Our Prefix once we are a part of the section
+    pub fn our_prefix(&self) -> Option<&Prefix<XorName>> {
+        Some((self.machine.current().chain()?).our_prefix())
+    }
+    /// Our ID once we are a part of the section
+    pub fn our_id(&self) -> Option<&PublicId> {
+        Some((self.chain()?).our_id())
+    }
+    /// Our section members once we are a part of the section
+    pub fn our_section_members(&self) -> Option<&BTreeSet<PublicId>>  {
+        Some((self.chain()?).our_info().members())
+    }
+    /// Our known valid peers once we are a part of the section
+    pub fn valid_peers(&self) -> Option<BTreeSet<&PublicId>> {
+        Some((self.chain()?).valid_peers())
+    }
+    /// Known prefixes to us
+    pub fn prefixes(&self) -> Option<BTreeSet<Prefix<XorName>>> {
+        Some((self.chain()?).prefixes())
+    }
+    /// Size at which our section splits. Since this is configurable, this method is used to
+    /// obtain it.
+    ///
+    /// Only if we have a chain (meaning we are elders) we will process this API
+    pub fn min_split_size(&self) -> Option<usize> {
+        Some((self.chain()?).min_split_size())
+    }
+    /// Verify chain invariant
+    pub fn verify_chain_invariant(&self, min_sec_size: usize) {
+        crate::chain::verify_chain_invariant(unwrap!(self.chain()), min_sec_size)
+    }
+
+    // #####################################################
+
     /// Returns the chain for this node.
     pub fn chain(&self) -> Option<&Chain> {
         self.machine.current().chain()

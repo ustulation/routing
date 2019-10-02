@@ -165,8 +165,8 @@ pub const ELDER_SIZE: usize = 7;
 use crate::mock::quic_p2p;
 #[cfg(any(test, feature = "mock_base"))]
 pub use crate::routing_table::verify_network_invariant;
+pub(crate) use crate::chain::Chain;
 pub use crate::{
-    chain::Chain,
     config_handler::{Config, DevConfig},
     error::{InterfaceError, RoutingError},
     event::Event,

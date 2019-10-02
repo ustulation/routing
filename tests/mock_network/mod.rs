@@ -442,7 +442,7 @@ fn check_section_info_ack() {
         .filter(|node| {
             node.chain()
                 .get_their_knowldege()
-                .contains_key(&node.chain().our_prefix().sibling())
+                .contains_key(node.our_prefix().sibling())
         })
         .map(|node| node.id())
         .collect();
